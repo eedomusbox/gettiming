@@ -1,0 +1,72 @@
+{
+	"plugin_id": "gettiming",
+	"name_fr": "Temps écoulé depuis ...",
+	"icon": "reveil.png",
+	"version": "1.0",
+	"creation_date": "2017-09-29",
+	"modification_date": "2017-09-29",
+	"author": "Influman",
+	"description_fr": "Donne le temps écoulé depuis la dernière valeur d'un état ou périphérique, en minutes ou en littéral.",
+	"description_en": "",
+	"description_es": "",
+	"description_it": "",
+	"description_de": "",
+	"forum_link": "http://forum.eedomus.com/viewtopic.php?f=14&t=3454",
+	"parameters":
+  [
+		{
+      "parameter": "API", 
+      "description": "Périphérique cible",
+      "xtype": "combo",
+			"field": "store : getCombo('/json/list_all.php'), displayField: 'label', valueField: 'id', typeAhead: true, forceSelection: true, triggerAction: 'all', selectOnFocus: true, editable: false, shadow:true, mode: 'local', width: 250, listWidth: 300, allowBlank: false"
+    }
+  ],
+	"scripts":
+	[
+		{
+			"name": "gettiming.php"
+		}
+	],
+	"devices":
+  [
+		{
+			"device_id": "delaitext",
+			"module_id": "51",
+			"type": "http",
+			"name_fr": "plugin.parameters.API.getName() délai littéral",
+			"icon": "reveil.png",
+			"utilisation_id": "35",
+			"parameters":
+			{
+				"VAR1": "plugin.parameters.API",
+				"VAR2": "",
+      	"VAR3": "",
+				"value_type": "string",
+				"ignore_errors": 3,
+				"RAW_URL": "http://localhost/script/?exec=gettiming.php&periphIds=[VAR1]",
+				"RAW_XPATH": "/ETATS/ETAT_[VAR1]/MESSAGE",
+				"POLLING": "1"
+			}
+		},
+		{
+			"device_id": "delaimn",
+			"parent_id": "delaitext",
+			"module_id": "51",
+			"type": "http",
+			"name_fr": "plugin.parameters.API.getName() délai en mn",
+			"icon": "reveil.png",
+			"utilisation_id": "35",
+			"parameters":
+			{
+				"VAR1": "plugin.parameters.API",
+				"VAR2": "",
+      	"VAR3": "",
+				"value_type": "float",
+				"ignore_errors": 3,
+				"RAW_URL": "http://localhost/script/?exec=gettiming.php&periphIds=[VAR1]",
+				"RAW_XPATH": "/ETATS/ETAT_[VAR1]/MINUTES",
+				"POLLING": "1"
+			}
+		}
+  ]
+}
