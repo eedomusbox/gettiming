@@ -17,7 +17,7 @@ foreach ( $tabPeriphs as $periphId ) {
     $lastValueText = $arrValue["value_text"];
     $lastValueChange = $arrValue["change"];
     if ( $lastValueChange == '' ) {
-        die ( "## ERROR: Empty result" );
+        die ( "## ERROR: Empty result $periphId" ); //Donne le périphérique en erreur
     }
     $tabetats[] = array ("API" => $periphId, "ETAT" => $lastValue, "TEXT" => $lastValueText, "CHANGE" => $lastValueChange);
 }
